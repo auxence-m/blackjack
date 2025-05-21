@@ -5,8 +5,7 @@
 #ifndef CARD_H
 #define CARD_H
 #include <string>
-#include <sstream>
-
+#include <iostream>
 
 enum Rank {
     ACE = 1,
@@ -57,40 +56,5 @@ public:
     explicit Spades(const Rank r) : Card(r) {}
     std::string getFace() const override;
 };
-
-inline std::string Hearts::getFace() const {
-    return {"[♥]"};
-}
-
-inline std::string Clubs::getFace() const {
-    return {"[♣]"};
-}
-
-inline std::string Diamonds::getFace() const {
-    return {"[♦]"};
-}
-
-inline std::string Spades::getFace() const {
-    return {"[♠]"};
-}
-
-inline Rank Card::getRank() const {
-    return rank;
-}
-
-inline std::ostream &operator<<(std::ostream &os, const Card* card) {
-    if (card -> getRank() > ACE && card -> getRank() < JACK) {
-        os << card->getRank() << card->getFace();
-    }  else if (card -> getRank() == JACK) {
-        os << "J" << card->getFace();
-    } else if (card -> getRank() == QUEEN) {
-        os << "Q" << card->getFace();
-    } else if (card -> getRank() == KING) {
-        os << "K" << card->getFace();
-    } else  {
-        os << "A" << card->getFace();
-    }
-    return os;
-}
 
 #endif //CARD_H
