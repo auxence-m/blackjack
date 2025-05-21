@@ -6,6 +6,12 @@
 #include "deck.h"
 #include "utility.h"
 
+//TODO: Add a more general class that player and dealer can inherit from
+//TODO: Add timed delay
+//TODO: Try to put to win/loss/draw logic into functions
+//TODO: Document methods
+//TODO: Add more comment where necessary
+
 
 int main() {
     SetConsoleOutputCP(CP_UTF8);

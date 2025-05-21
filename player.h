@@ -7,7 +7,6 @@
 #include <vector>
 #include "card.h"
 
-
 class Dealer {
     std::vector<Card*> hand = std::vector<Card*>();
     int total = 0;
@@ -19,7 +18,6 @@ public:
     void clear();
     void addCard(Card*);
     int getTotal() const;
-    virtual ~Dealer() = default;
 };
 
 class Player final : public Dealer {
