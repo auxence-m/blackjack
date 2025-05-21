@@ -8,4 +8,5 @@ add_executable(blackjack main.cpp
         Deck.h
         cardFactory.h
         player.h
+        utility.h
 )

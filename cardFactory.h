@@ -37,11 +37,6 @@ inline CardFactory::CardFactory() {
     for (int i = 1; i <= 13; i++) {
         deck.addCard(new Spades(static_cast<Rank>(i)));
     }
-
-    const auto seed = std::chrono::system_clock::now().time_since_epoch().count();
-    auto engine = std::default_random_engine(seed);
-    std::shuffle(deck.begin(), deck.end(), engine);
-
 }
 
 inline CardFactory* CardFactory::getFactory() {
@@ -52,6 +47,11 @@ inline CardFactory* CardFactory::getFactory() {
 }
 
 inline Deck CardFactory::getDeck() {
+    // Shuffle deck each time
+    const auto seed = std::chrono::system_clock::now().time_since_epoch().count();
+    auto engine = std::default_random_engine(seed);
+    std::shuffle(deck.begin(), deck.end(), engine);
+
     return deck;
 }
 
