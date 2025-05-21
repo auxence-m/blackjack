@@ -13,4 +13,5 @@ add_executable(blackjack main.cpp
         card.cpp
         cardFactory.cpp
         deck.cpp
+        utility.cpp
 )

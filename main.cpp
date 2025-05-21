@@ -1,13 +1,10 @@
 #include <iostream>
-#include <cstdio>
 #include <windows.h>
 #include "cardFactory.h"
 #include "playerBase.h"
 #include "deck.h"
 #include "utility.h"
 
-//TODO: Add timed delay
-//TODO: Try to put to win/loss/draw logic into functions
 //TODO: Document methods
 //TODO: Add more comment where necessary
 
@@ -43,16 +40,7 @@ int main() {
         }
 
         // Ask player to place a bet
-        int bet = 0;
-        std::cout << "You have " << player.getCash() << "$" << std::endl;
-        std::cout << "How much would you like to bet?:";
-        std::cin >> bet;
-
-        while (bet == 0 || bet > player.getCash()) {
-            std::cout << "You cannot bet more than " << player.getCash() << "$" << std::endl;
-            std::cout << "How much would you like to bet?:";
-            std::cin >> bet;
-        }
+        const int bet = askBetQuestion(player.getCash());
 
         std::cout << "You bet " <<  bet << "$" << std::endl;
         std::cout << "Dealing card...." << std::endl;
@@ -65,7 +53,7 @@ int main() {
         }
 
         // Display players hand
-        // Dealer hand first stays face down until players decides to stand
+        // Dealer hand first card stays face down until players decides to stand
         // Dealer total is also the value of the face up card only for now
         std::cout << "You:    ";
         player.printHand();
@@ -79,7 +67,7 @@ int main() {
         // Check for BlackJack
         // Neither de dealer nor the player can lose on the first draw. But they can Blackjack.
         if (player.getTotal() == 21) {
-            std::cout << "😀 BLACKJACK, YOU WIN!!!" << std::endl;
+            std::cout << "☺️ BLACKJACK, YOU WIN!!!" << std::endl;
             player.setCash(player.getCash() + bet);
             winOrLose = true;
         }
@@ -103,7 +91,7 @@ int main() {
 
             // Check for BlackJack or loss
             if (player.getTotal() == 21) {
-                std::cout << "😀 BLACKJACK, YOU WIN!!!" << std::endl;
+                std::cout << "☺️ BLACKJACK, YOU WIN!!!" << std::endl;
                 player.setCash(player.getCash() + bet);
                 winOrLose = true;
                 break;
@@ -118,9 +106,9 @@ int main() {
             answer = askHitOrStandQuestion("Hit or Stand ? (H)/(S): ");
         }
 
+        // Dealer's turn to play
         if (answer == "S") {
-            // Dealer plays
-            // Dealer reveals hidden card.
+            // Dealer reveals hidden card first.
             std::cout << "You:    ";
             player.printHand();
             std::cout << "(Total " << player.computeTotal() << ")" << std::endl;
@@ -132,6 +120,7 @@ int main() {
 
             // check for win or loss
             if (dealer.getTotal() > player.getTotal()) {
+                // Here the dealer's total could never be more than 21 because he only has two cards
                 std::cout << "☹️ YOU LOSE!!!"<< std::endl;
                 player.setCash(player.getCash() - bet);
                 winOrLose = true;
@@ -142,8 +131,11 @@ int main() {
                     winOrLose = true;
                 }
             } else if (dealer.getTotal() == player.getTotal()) {
-                std::cout << "😁 IT'S A DRAW!!" << std::endl;
-                winOrLose = true;
+                // Dealer has to hit as long as its total is less than 17
+                if (dealer.getTotal() >= 17) {
+                    std::cout << "☺️ IT'S A DRAW!!" << std::endl;
+                    winOrLose = true;
+                }
             }
 
             // Dealer must hit if its total is 16 or lower and stand if its total is 17 or higher
@@ -161,9 +153,15 @@ int main() {
 
                 // check for win or loss
                 if (dealer.getTotal() > player.getTotal()) {
-                    std::cout << "☹️ YOU LOSE!!!" << std::endl;
-                    player.setCash(player.getCash() - bet);
-                    winOrLose = true;
+                    if (dealer.getTotal() > 21) {
+                        std::cout << "☺️ YOU WIN!!!" << std::endl;
+                        player.setCash(player.getCash() - bet);
+                        winOrLose = true;
+                    } else {
+                        std::cout << "☹️ YOU LOSE!!!" << std::endl;
+                        player.setCash(player.getCash() - bet);
+                        winOrLose = true;
+                    }
                 } else if (dealer.getTotal() < player.getTotal()) {
                     if (dealer.getTotal() >= 17) {
                         std::cout << "☺️ YOU WIN!!!" << std::endl;
@@ -171,8 +169,11 @@ int main() {
                         winOrLose = true;
                     }
                 } else if (dealer.getTotal() == player.getTotal()) {
-                    std::cout << "😁 IT'S A DRAW!!" << std::endl;
-                    winOrLose = true;
+                    // Dealer has to hit as long as its total is less than 17
+                    if (dealer.getTotal() >= 17) {
+                        std::cout << "☺️ IT'S A DRAW!!" << std::endl;
+                        winOrLose = true;
+                    }
                 }
             }
         }
