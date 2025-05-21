@@ -7,6 +7,10 @@ add_executable(blackjack main.cpp
         card.h
         Deck.h
         cardFactory.h
-        player.h
+        playerBase.h
         utility.h
+        playerBase.cpp
+        card.cpp
+        cardFactory.cpp
+        deck.cpp
 )
