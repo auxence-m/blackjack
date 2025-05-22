@@ -5,7 +5,8 @@
 - Make sur you have downloaded and installed the latest version of [CMake](https://cmake.org/download/)
 
 - Clone the repository by either downloading the zip version or by running the following command
-`https://github.com/Auxence-M/blackjack.git`
+
+`git clone https://github.com/Auxence-M/blackjack.git`
 
 - Change directory to the project directory `cd blackjack-main`
 
