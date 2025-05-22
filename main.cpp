@@ -5,9 +5,6 @@
 #include "deck.h"
 #include "utility.h"
 
-//TODO: Document methods
-//TODO: Add more comment where necessary
-
 int main() {
     SetConsoleOutputCP(CP_UTF8);
     const auto game = "BlackJack";
@@ -42,6 +39,7 @@ int main() {
         // Ask player to place a bet
         const int bet = askBetQuestion(player.getCash());
 
+        std::cout << std::endl;
         std::cout << "You bet " <<  bet << "$" << std::endl;
         std::cout << "Dealing card...." << std::endl;
         std::cout << std::endl;
@@ -80,6 +78,7 @@ int main() {
         while (answer == "H" and !winOrLose) {
             player.addCard(deck.drawCard());
 
+            std::cout << std::endl;
             std::cout << "You:    ";
             player.printHand();
             std::cout << "(Total " << player.computeTotal() << ")" << std::endl;
