@@ -13,7 +13,7 @@ cmake --version
 - Clone the repository by either downloading the zip version or by running the following command:
 
 ```
-git clone https://github.com/Auxence-M/blackjack.git
+git clone https://github.com/auxence-m/blackjack.git
 ```
 
 - Change directory to the project directory 
